@@ -1,41 +1,220 @@
-# mindriser-project
-**
+**Music Dataset EDA**
 **Project Overview**
 This project explores a music dataset containing features such as Beats Per Minute (BPM), Energy, Danceability, and Artist information. The goal is to analyze and understand relationships between these features across different genres and artists.
 
-**Contents**
-Data cleaning and transformation: Handling missing values, encoding categorical variables, and scaling numerical features.
+**MUSIC DATASET EDA** 
 
-Exploratory Data Analysis (EDA): Visualizations including histograms, boxplots, and correlation heatmaps to identify patterns, distributions, and correlations.
+A COMPLETE EXPLORATORY DATA ANALYSIS PROJECT ON A SPOTIFY-STYLE “TOP 50” DATASET.
+COVERS CLEANING & IMPUTATION, OUTLIER DETECTION, ENCODING & SCALING, FEATURE CREATION, AND VISUALIZATIONS (HISTOGRAMS, BOXPLOTS, SCATTERPLOTS, AND CORRELATION HEATMAPS).
 
-Key insights: Identification of strong and weak feature relationships, such as the correlation between BPM and dance characteristics.
+ **HIGHLIGHTS**                
 
-**What this project does****
-This project analyzes a music dataset to understand patterns in song features like tempo, energy, and danceability across different genres and artists.
-**
-**Why this project is useful****
-By exploring relationships between musical features, this project helps music producers, data analysts, and enthusiasts gain insights into music trends and artist styles.
+MISSING-VALUE HANDLING (MEDIAN IMPUTATION FOR NUMERIC; NaN HANDLING IN CATEGORICAL)
 
-**Exploratory Data Analysis (EDA)**
+OUTLIER DETECTION USING IQR METHOD (NO ENERGY OUTLIERS FOUND)
 
-Plotted histograms for all numeric columns to see distribution and spot outliers.
+CATEGORICAL ENCODING (ONE-HOT FOR TRACK.NAME, LABEL ENCODING FOR ARTIST.NAME)
 
-Used boxplots to compare Energy levels by Genre and Beats Per Minute by Artist.
+MIN–MAX SCALING FOR NUMERIC FEATURES
 
-Created correlation heatmaps to find relationships between numeric features.
+NEW ENGINEERED FEATURE: BPM_TO_DANCE_RATIO = BEATS.PER.MINUTE / DANCEABILITY
 
-Purpose: Discover patterns, trends, and potential data quality issues.
+VISUAL EDA: HISTOGRAMS, BOXPLOTS BY GENRE/ARTIST, SCATTERPLOTS, CORRELATION HEATMAPS (SEABORN & PLOTLY)
 
-**Key Insights from EDA**
+ **FEATURES**
 
-Energy varies widely in some genres (dance pop, pop) and is consistent in others (trap, pop house).
+DATA CLEANING
 
-Tempo (BPM) varies significantly by artist; some produce a wide tempo range, others consistent.
+FILL POPULARITY AND STREAMS WITH MEDIAN
 
-Strong positive correlation (~0.74) between Beats Per Minute and Beats Per Minute to Dance ratio.
+REPLACE SPECIFIC CATEGORY VALUES WITH NaN (E.G., GENRE="BROSTEP")
 
-Strong negative correlation (~-0.54) between Danceability and Beats Per Minute to Dance ratio.
+DROP ROWS WITH MISSING GENRE
 
-Artist Name shows weak correlation with danceability and beats.
+**OUTLIER DETECTION**
 
-Purpose: Identify important relationships that inform future modeling or business decisions.
+IQR METHOD ON ENERGY
+
+RESULT: NO OUTLIERS (Q1≈55.25, Q3≈74.75; FENCES 26–104)
+
+**TRANSFORMATIONS**
+
+ONE-HOT ENCODER ON TRACK.NAME → 50 BINARY COLUMNS
+
+MIN-MAX SCALER ON ACOUSTICNESS.., BEATS.PER.MINUTE, DANCEABILITY
+
+LABEL ENCODER ON ARTIST.NAME → ARTIST.NAME_ENCODED
+
+**FEATURE ENGINEERING**
+
+BEATS.PER.MINUTE / DANCEABILITY → BPM_TO_DANCE_RATIO
+
+**VISUALIZATIONS**
+
+HISTOGRAMS FOR ALL NUMERIC COLUMNS
+
+BOXPLOTS: ENERGY BY GENRE, BPM BY ARTIST
+
+SCATTER: ENERGY VS DANCEABILITY (HUE=GENRE)
+
+CORRELATION HEATMAPS (SEABORN & PLOTLY)
+
+**TECHNOLOGIES USED**
+
+**CORE**
+
+PYTHON, PANDAS, NUMPY, SCIKIT-LEARN
+
+**VISUALIZATION**
+
+MATPLOTLIB, SEABORN, PLOTLY EXPRESS
+
+**NOTEBOOK**
+
+JUPYTER / GOOGLE COLAB
+
+ **PREREQUISITES**
+
+PYTHON 3.10+
+
+PIP
+
+JUPYTER NOTEBOOK OR JUPYTERLAB
+
+🚀 INSTALLATION & SETUP
+# CLONE YOUR REPO (REPLACE WITH YOUR URL)
+GIT CLONE https://github.com/<YOU>/MUSIC-EDA-TOP50.GIT
+CD MUSIC-EDA-TOP50
+
+# CREATE & ACTIVATE VIRTUAL ENVIRONMENT (OPTIONAL)
+PYTHON -M VENV .VENV
+# WINDOWS: .VENV\SCRIPTS\ACTIVATE
+# MACOS/LINUX: SOURCE .VENV/BIN/ACTIVATE
+
+# INSTALL DEPENDENCIES
+PIP INSTALL -R REQUIREMENTS.TXT
+
+# RUN NOTEBOOK
+JUPYTER NOTEBOOK
+# OPEN NOTEBOOKS/MUSIC_EDA.IPYNB
+
+
+**MINIMAL REQUIREMENTS.TXT**
+
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+plotly
+
+ **SUGGESTED PROJECT STRUCTURE**
+music-eda-top50/
+├─ data/
+│  └─ top50.csv
+├─ notebooks/
+│  └─ Music_EDA.ipynb
+├─ src/
+│  ├─ cleaning.py
+│  ├─ features.py
+│  └─ viz.py
+├─ requirements.txt
+└─ README.md
+
+ **KEY CODE SNIPPETS**
+
+**IMPUTATION**
+
+df['Popularity'] = df['Popularity'].fillna(df['Popularity'].median())
+df['Streams']    = df['Streams'].fillna(df['Streams'].median())
+
+
+**HANDLE CATEGORICAL NaNs**
+
+df['Genre'] = df['Genre'].replace({'brostep': np.nan})
+df = df.dropna(subset=['Genre'])
+
+
+**ONE-HOT ENCODING**
+
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+encoded = ohe.fit_transform(df[['Track.Name']])
+encoded_df = pd.DataFrame(encoded, columns=ohe.get_feature_names_out(['Track.Name']))
+
+
+**MIN–MAX SCALING**
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+scaled = scaler.fit_transform(df[['Acousticness..','Beats.Per.Minute','Danceability']])
+df[['Acousticness..','Beats.Per.Minute','Danceability']] = scaled
+
+
+**LABEL ENCODING & FEATURE ENGINEERING**
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+df['Artist.Name_encoded'] = le.fit_transform(df_original['Artist.Name'])
+df['BPM_to_Dance_ratio'] = df['Beats.Per.Minute'] / df['Danceability']
+
+
+**CORRELATION**
+
+numeric_df = df.select_dtypes(include='number')
+corr = numeric_df.corr(numeric_only=True, method='pearson')
+
+📊 **RESULTS & INSIGHTS**
+
+ENERGY (IQR): MIDDLE 50% ≈ 55–75, NO OUTLIERS
+
+CORRELATIONS (NORMALIZED)
+
+BPM ↔ BPM_TO_DANCE_RATIO: +0.74 (STRONG POSITIVE)
+
+DANCEABILITY ↔ BPM_TO_DANCE_RATIO: −0.54 (STRONG NEGATIVE)
+
+ARTIST.NAME_ENCODED SHOWS WEAK LINKS TO DANCEABILITY
+
+GENRES
+
+DANCE POP & POP: WIDE ENERGY SPREAD
+
+TRAP MUSIC & POP HOUSE: TIGHT ENERGY SPREAD
+
+ARTISTS
+
+SOME HAVE BROAD BPM VARIETY, OTHERS CONSISTENT TEMPOS
+
+🖼️ PLOTS
+
+HISTOGRAMS: DISTRIBUTION OF ALL NUMERIC FEATURES
+
+BOXPLOTS:
+
+ENERGY BY GENRE
+
+BPM BY ARTIST
+
+SCATTER: ENERGY VS DANCEABILITY (HUE=GENRE)
+
+HEATMAPS: PAIRWISE CORRELATIONS (SEABORN + INTERACTIVE PLOTLY)
+
+🔒 NOTES & GOTCHAS
+
+CHAINED ASSIGNMENT WARNING (PANDAS 3.0+): ASSIGN BACK TO COLUMN AS SHOWN ABOVE
+
+PLOT GLYPH WARNING: COLUMN NAMES WITH TAB \t CAN TRIGGER FONT WARNINGS. CLEAN COLUMN NAMES (E.G., Beats.Per.Minute\t → Beats.Per.Minute)
+
+📝 LICENSE
+
+This project is licensed under the MIT License
+
+📞 CONTACT
+
+ANUPA K.C - anupakc000@gmail.com
+
+PROJECT LINK: [https://github.com/<YOU>/MUSIC-EDA-TOP50](https://github.com/withanupa/mindriser-project/tree/main)
+
+ABOUT
+A COMPLETE, REPRODUCIBLE EDA PIPELINE FOR A MUSIC DATASET WITH ROBUST CLEANING, FEATURE ENGINEERING, AND VISUAL ANALYSIS—READY TO EXTEND INTO MODELING (E.G., POPULARITY PREDICTION OR RECOMMENDATION).
