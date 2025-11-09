@@ -1,10 +1,10 @@
-Sales Dataset EDA
-Project Overview
+# Sales Dataset EDA
+# Project Overview
 
 This project explores a retail sales dataset containing product descriptions, unit prices, quantities sold, and total revenue.
 The goal is to uncover insights on top-performing products, seasonal revenue trends, and relationships between key features like Quantity, Unit Price, and Revenue.
 
-1. Data Cleaning & Preparation
+# 1. Data Cleaning & Preparation
 
 Removed null and duplicate entries
 
@@ -14,7 +14,7 @@ Created a Revenue column = Quantity × UnitPrice
 
 Filtered invalid or zero values in Quantity and UnitPrice
 
-2. Exploratory Data Analysis
+# 2. Exploratory Data Analysis
 Top Products by Revenue
 
 Jumbo Bag Red Retrospot is the top-selling product, earning over 200K in total revenue
@@ -23,16 +23,16 @@ Followed by White Hanging Heart and Regency Cakes
 
 The top 10 products each generate over 10K, showing that a few key products contribute most to overall revenue
 
-Correlation Analysis
+# Correlation Analysis
 Relationship	Correlation	Insight
 Quantity ↔ Revenue	+0.41	More items sold = higher revenue
 Unit Price ↔ Revenue	+0.30	Higher prices slightly boost revenue
 Quantity ↔ Unit Price	–0.32	Lower-priced items tend to sell more
 
-Interpretation:
+# Interpretation:
 Revenue depends more on Quantity sold than Unit Price. Cheaper items with higher volume drive overall earnings.
 
-Seasonality & Trend Insights
+# Seasonality & Trend Insights
 
 Revenue rises quickly from September to November, peaking in November (~700K)
 
@@ -42,21 +42,21 @@ From April to August, sales remain stable between 320K–360K
 
 The pattern forms a U-shaped trend — low in early months, steady mid-year, and high at year-end
 
-Business Implication:
+# Business Implication:
 
 Introduce promotions or discounts during February–March (low months)
 
 Boost inventory and marketing in October–November to maximize profit during peak season
 
-3. Visualizations
+# 3. Visualizations
 
-Correlation Heatmap: Shows relationships among Quantity, Unit Price, and Revenue
+# Correlation Heatmap: Shows relationships among Quantity, Unit Price, and Revenue
 
 Monthly Revenue Trend: Highlights seasonal behavior
 
 Top 10 Products Bar Chart: Displays highest revenue-generating products
 
-4. Key Insights Summary
+# 4. Key Insights Summary
 
 A few products dominate total revenue
 
@@ -66,13 +66,13 @@ Strong seasonal behavior — demand peaks in Q4
 
 February shows the lowest performance and can be targeted for promotional activity
 
-Technologies Used
+# Technologies Used
 
 Core: Python, Pandas, NumPy
 Visualization: Matplotlib, Seaborn, Plotly
 Notebook: Jupyter / Google Colab
 
-Suggested Project Structure
+# Suggested Project Structure
 sales-eda/
 ├─ data/
 │  └─ sales_data.csv
@@ -85,12 +85,12 @@ sales-eda/
 ├─ requirements.txt
 └─ README.md
 
-License
+# License
 
 This project is licensed under the MIT License.
 
-Contact
+# Contact
 
 Anupa K.C – anupakc000@gmail.com
 
-Project Link: https://github.com/anupakc/Sales-EDA
+# Project Link: https://github.com/anupakc/Sales-EDA
